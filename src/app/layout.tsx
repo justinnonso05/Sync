@@ -19,9 +19,9 @@ const bricolage = Bricolage_Grotesque({
 });
 
 export const metadata: Metadata = {
-  title: "Start Smart: Syncing Academic Excellence with Industry Mastery",
+  title: "Start Smart: Syncing Academic Excellence with Tech Industry",
   description:
-    "Join us for an inspiring day where academic brilliance meets real-world industry mastery.",
+    "Join us for an inspiring day where academic brilliance meets real-world tech industry mastery.",
   keywords: ["event", "tech", "networking", "academic", "industry", "Start Smart"],
   icons: {
     icon: "/sync.png",

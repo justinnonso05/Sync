@@ -8,14 +8,14 @@ const Snowfall = dynamic(() => import("@/components/Snowfall"), { ssr: false });
 
 const gcalUrl =
   "https://calendar.google.com/calendar/render?action=TEMPLATE" +
-  "&text=Start+Smart%3A+Syncing+Academic+Excellence+with+Industry+Mastery" +
-  "&dates=20250712T090000Z%2F20250712T150000Z" +
-  "&details=Join+us+for+an+inspiring+day+where+academic+excellence+meets+industry+mastery." +
-  "&location=Lagos%2C+Nigeria";
+  "&text=Start+Smart%3A+Syncing+Academic+Excellence+with+Tech+Industry" +
+  "&dates=20260523T090000Z%2F20260523T150000Z" +
+  "&details=Join+us+for+an+inspiring+day+where+academic+excellence+meets+the+tech+industry." +
+  "&location=Google+Meet";
 
 const EVENT_ROWS = [
   {
-    label: "Date", value: "Saturday, July 12, 2025",
+    label: "Date", value: "May 23, 2026",
     icon: (
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--creva-purple-light)" strokeWidth="1.75">
         <rect x="3" y="4" width="18" height="18" rx="2" /><line x1="16" y1="2" x2="16" y2="6" strokeLinecap="round" />
@@ -32,10 +32,10 @@ const EVENT_ROWS = [
     ),
   },
   {
-    label: "Location", value: "Lagos, Nigeria",
+    label: "Location", value: "Google Meet",
     icon: (
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--creva-purple-light)" strokeWidth="1.75">
-        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" />
+        <path d="M15.6 11.6L22 7v10l-6.4-4.6v4.6H2V7h13.6v4.6z" />
       </svg>
     ),
   },
