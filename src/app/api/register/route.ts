@@ -30,8 +30,10 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    // Send confirmation email (non-blocking — don't fail registration if email fails)
-    sendConfirmationEmail(registration.fullName, registration.email).catch(console.error);
+    // Send confirmation email (must await in serverless environments like Vercel)
+    await sendConfirmationEmail(registration.fullName, registration.email).catch((err) => {
+      console.error("Non-fatal email error:", err);
+    });
 
     return NextResponse.json({ success: true, id: registration.id }, { status: 201 });
   } catch (err) {
