@@ -1,0 +1,604 @@
+@import "tailwindcss";
+
+/* ─── CREVA Brand Tokens ─────────────────────────────────────── */
+:root {
+  /* Core palette — tweak these to retheme the entire site */
+  --creva-bg:           #070709;
+  --creva-purple-deep:  #4c1d95;
+  --creva-purple:       #7c3aed;
+  --creva-purple-mid:   #8b5cf6;
+  --creva-purple-light: #a78bfa;
+  --creva-purple-faint: #c4b5fd;
+  --creva-white:        #ffffff;
+  --creva-gray-400:     #9ca3af;
+  --creva-gray-600:     #4b5563;
+  --creva-card-bg:      rgba(255, 255, 255, 0.04);
+  --creva-border:       rgba(167, 139, 250, 0.15);
+
+  /* Glow intensities */
+  --glow-primary:   rgba(139, 92, 246, 0.18);
+  --glow-secondary: rgba(139, 92, 246, 0.08);
+
+  --background: var(--creva-bg);
+  --foreground: var(--creva-white);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* ─── Base ───────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--creva-bg);
+  color: var(--creva-white);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ─── Hero Background Layers ─────────────────────────────────── */
+.hero-container {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--creva-bg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Starfield */
+.hero-stars {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1.5px 1.5px at 15px  25px, rgba(255,255,255,0.7), transparent),
+    radial-gradient(1px   1px   at 45px  80px, rgba(255,255,255,0.4), transparent),
+    radial-gradient(2px   2px   at 95px  35px, rgba(255,255,255,0.5), transparent),
+    radial-gradient(1px   1px   at 130px 60px, rgba(255,255,255,0.3), transparent),
+    radial-gradient(1.5px 1.5px at 200px 20px, rgba(255,255,255,0.6), transparent),
+    radial-gradient(1px   1px   at 260px 90px, rgba(255,255,255,0.35),transparent),
+    radial-gradient(2px   2px   at 310px 50px, rgba(255,255,255,0.5), transparent),
+    radial-gradient(1px   1px   at 370px 15px, rgba(255,255,255,0.4), transparent),
+    radial-gradient(1.5px 1.5px at 420px 75px, rgba(255,255,255,0.6), transparent),
+    radial-gradient(1px   1px   at 480px 40px, rgba(255,255,255,0.3), transparent);
+  background-repeat: repeat;
+  background-size: 520px 120px;
+  opacity: 0.45;
+  z-index: 0;
+}
+
+/* Ambient radial glow — stronger bottom bloom */
+.hero-glow {
+  position: absolute;
+  bottom: -5%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 160%;
+  height: 80%;
+  background: radial-gradient(ellipse at 50% 100%, rgba(139,92,246,0.30) 0%, rgba(100,60,220,0.12) 40%, transparent 65%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Secondary top glow */
+.hero-glow-top {
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 50%;
+  background: radial-gradient(ellipse at 50% 0%, rgba(139,92,246,0.10) 0%, transparent 70%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ─── 3-D perspective wireframe FLOOR grid ─────────────────── */
+.hero-grid {
+  position: absolute;
+  bottom: 0;
+  left: -60%;
+  width: 220%;
+  height: 75%;
+  background-image:
+    linear-gradient(rgba(167,139,250,0.55) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(167,139,250,0.55) 1px, transparent 1px);
+  background-size: 55px 55px;
+  transform: perspective(480px) rotateX(50deg) translateY(30px);
+  transform-origin: bottom center;
+  mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 25%, rgba(0,0,0,0) 55%);
+  -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 25%, rgba(0,0,0,0) 55%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* LEFT side wall grid */
+.hero-grid-left {
+  position: absolute;
+  top: 0;
+  left: -5%;
+  width: 35%;
+  height: 100%;
+  background-image:
+    linear-gradient(rgba(167,139,250,0.30) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(167,139,250,0.30) 1px, transparent 1px);
+  background-size: 55px 55px;
+  transform: perspective(600px) rotateY(35deg);
+  transform-origin: left center;
+  mask-image: linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 80%);
+  -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 80%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* RIGHT side wall grid */
+.hero-grid-right {
+  position: absolute;
+  top: 0;
+  right: -5%;
+  width: 35%;
+  height: 100%;
+  background-image:
+    linear-gradient(rgba(167,139,250,0.30) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(167,139,250,0.30) 1px, transparent 1px);
+  background-size: 55px 55px;
+  transform: perspective(600px) rotateY(-35deg);
+  transform-origin: right center;
+  mask-image: linear-gradient(to left, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 80%);
+  -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 80%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* TOP ceiling grid — mirrors the floor, fades downward */
+.hero-grid-top {
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 220%;
+  height: 75%;
+  background-image:
+    linear-gradient(rgba(167,139,250,0.45) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(167,139,250,0.45) 1px, transparent 1px);
+  background-size: 55px 55px;
+  transform: perspective(480px) rotateX(-50deg) translateY(-30px);
+  transform-origin: top center;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 25%, rgba(0,0,0,0) 55%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 25%, rgba(0,0,0,0) 55%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* ─── Navbar ─────────────────────────────────────────────────── */
+
+/* Full-width navbar bar — transparent, sits on hero */
+.navbar-bar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: transparent;
+}
+
+/* Centre nav link pill */
+.nav-pill {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 9999px;
+  padding: 0.25rem;
+}
+
+.nav-link {
+  color: rgba(255,255,255,0.68);
+  font-size: 0.875rem;
+  padding: 0.35rem 0.9rem;
+  border-radius: 9999px;
+  transition: color 0.2s, background 0.2s;
+  white-space: nowrap;
+}
+.nav-link:hover  { color: #fff; background: rgba(255,255,255,0.09); }
+.nav-link.active { color: #fff; background: rgba(255,255,255,0.13); }
+
+/* ─── Buttons ────────────────────────────────────────────────── */
+.btn-primary {
+  background: var(--creva-purple-mid);
+  color: #fff;
+  padding: 0.75rem 2rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  cursor: pointer;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.btn-primary:hover {
+  background: var(--creva-purple);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 30px rgba(139,92,246,0.4);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--creva-purple-light);
+  padding: 0.65rem 1.5rem;
+  border-radius: 9999px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  border: 1px solid var(--creva-purple-mid);
+  transition: background 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+.btn-outline:hover {
+  background: rgba(139,92,246,0.12);
+  box-shadow: 0 0 20px rgba(139,92,246,0.2);
+}
+
+/* ─── Cards ──────────────────────────────────────────────────── */
+.glass-card {
+  background: var(--creva-card-bg);
+  border: 1px solid var(--creva-border);
+  border-radius: 1rem;
+  backdrop-filter: blur(10px);
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+.glass-card:hover {
+  border-color: rgba(167,139,250,0.35);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px rgba(139,92,246,0.12);
+}
+
+/* ─── Trusted-by logos strip ─────────────────────────────────── */
+.logo-strip {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  opacity: 0.55;
+  filter: grayscale(1) brightness(1.8);
+  transition: opacity 0.2s;
+}
+.logo-strip:hover { opacity: 0.75; }
+
+/* ─── Section badge ──────────────────────────────────────────── */
+.section-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(139,92,246,0.12);
+  border: 1px solid rgba(139,92,246,0.3);
+  color: var(--creva-purple-light);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.9rem;
+  border-radius: 9999px;
+}
+
+/* ─── Pill tag on card ───────────────────────────────────────── */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(139,92,246,0.2);
+  color: var(--creva-purple-faint);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+}
+.status-pill .dot {
+  width: 6px; height: 6px;
+  background: var(--creva-purple-light);
+  border-radius: 9999px;
+}
+
+/* ─── Animations ─────────────────────────────────────────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(139,92,246,0.3); }
+  50%       { box-shadow: 0 0 40px rgba(139,92,246,0.6); }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+.animate-float   { animation: float 4s ease-in-out infinite; }
+.animate-glow    { animation: pulse-glow 3s ease-in-out infinite; }
+
+@keyframes fadeOverlay {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ─── Registration / Event Pages ─────────────────────────────── */
+
+
+/* Page-level fade-up entrance */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up {
+  animation: fadeUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.fade-up-1 { animation-delay: 0.05s; }
+.fade-up-2 { animation-delay: 0.12s; }
+.fade-up-3 { animation-delay: 0.2s;  }
+.fade-up-4 { animation-delay: 0.28s; }
+
+/* Curved SVG underline — drawn by stroke-dashoffset */
+@keyframes drawCurve {
+  from { stroke-dashoffset: 240; }
+  to   { stroke-dashoffset: 0; }
+}
+.curved-underline {
+  display: block;
+  width: 100%;
+  height: 10px;
+  overflow: visible;
+  margin-top: 4px;
+}
+.curved-underline path {
+  stroke-dasharray: 240;
+  stroke-dashoffset: 240;
+  animation: drawCurve 0.7s 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* SVG checkmark draw animation */
+@keyframes drawCheck {
+  from { stroke-dashoffset: 60; }
+  to   { stroke-dashoffset: 0;  }
+}
+.check-draw {
+  stroke-dasharray: 60;
+  stroke-dashoffset: 60;
+  animation: drawCheck 0.5s 0.2s ease-out forwards;
+}
+
+/* Success circle scale-in */
+@keyframes scaleIn {
+  from { transform: scale(0.6); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+.scale-in {
+  animation: scaleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Subtle card entrance */
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(12px) scale(0.99); }
+  to   { opacity: 1; transform: translateY(0)   scale(1);    }
+}
+.card-in {
+  animation: cardIn 0.45s 0.08s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Progress bar fill */
+@keyframes fillBar {
+  from { width: 0%; }
+  to   { width: var(--bar-width, 60%); }
+}
+
+/* Form inputs */
+.reg-label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--creva-gray-400);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.45rem;
+}
+
+.reg-input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  color: var(--creva-white);
+  font-size: 0.925rem;
+  outline: none;
+  transition: border-color 0.18s ease, background 0.18s ease;
+  font-family: inherit;
+}
+.reg-input::placeholder { color: rgba(156, 163, 175, 0.5); }
+.reg-input:focus {
+  border-color: rgba(139, 92, 246, 0.5);
+  background: rgba(139, 92, 246, 0.04);
+}
+.reg-input:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* Feedback states */
+.reg-error {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(239, 68, 68, 0.07);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: #fca5a5;
+  padding: 0.7rem 0.9rem;
+  border-radius: 0.5rem;
+  font-size: 0.86rem;
+  animation: fadeUp 0.25s ease both;
+}
+.reg-success {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(34, 197, 94, 0.07);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  color: #86efac;
+  padding: 0.7rem 0.9rem;
+  border-radius: 0.5rem;
+  font-size: 0.86rem;
+  animation: fadeUp 0.25s ease both;
+}
+
+/* Spinner */
+.reg-spinner {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.65s linear infinite;
+  flex-shrink: 0;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Event info strip pill */
+.ev-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 9999px;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.82rem;
+  color: var(--creva-gray-400);
+}
+
+/* Divider line */
+.ev-divider {
+  width: 1px;
+  height: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Step indicator dot */
+.step-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--creva-purple-mid);
+  flex-shrink: 0;
+  position: relative;
+}
+.step-dot::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+/* Admin icon */
+.admin-icon-box {
+  width: 40px;
+  height: 40px;
+  background: rgba(124, 58, 237, 0.1);
+  border: 1px solid rgba(124, 58, 237, 0.2);
+  border-radius: 0.65rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Glassmorphic stat card */
+.stat-card {
+  background: rgba(18, 12, 40, 0.55);
+
+  border: 1px solid rgba(139, 92, 246, 0.12);
+  border-radius: 0.75rem;
+  padding: 1.25rem 1.5rem;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 4px 24px rgba(0,0,0,0.28);
+  transition: border-color 0.2s;
+}
+.stat-card:hover { border-color: rgba(139, 92, 246, 0.22); }
+
+
+/* Table row hover */
+.reg-row {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  transition: background 0.12s;
+}
+.reg-row:hover { background: rgba(139, 92, 246, 0.04); }
+
+/* Typing cursor blink */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+.cursor-blink {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: var(--creva-purple-light);
+  margin-left: 2px;
+  vertical-align: middle;
+  animation: blink 1s step-end infinite;
+}
+
+/* ─── Landing Page Flier ─────────────────────────────────────── */
+
+/* Flier float-in */
+@keyframes flierFloat {
+  from { opacity: 0; transform: rotate(-3deg) translateY(16px); }
+  to   { opacity: 1; transform: rotate(-3deg) translateY(0); }
+}
+
+.flier-wrapper {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  max-width: 520px;
+  /* Slight tilt — looks like it was casually placed on desk */
+  transform: rotate(-3deg);
+  animation: flierFloat 0.65s 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+  /* Gentle idle float */
+  /* (continuous float kept subtle — only a tiny bob) */
+}
+
+/* Decorative dot-grid behind flier */
+.flier-deco {
+  position: absolute;
+  inset: -24px;
+  border-radius: 1.5rem;
+  background-image:
+    radial-gradient(circle, rgba(139,92,246,0.22) 1px, transparent 1px);
+  background-size: 18px 18px;
+  z-index: 0;
+  /* Mask fade to transparent toward edges */
+  -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+  mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+}
+
+/* Hide flier column on mobile */
+@media (max-width: 900px) {
+  .flier-wrapper { display: none; }
+}
+
+/* Hero section stacks on mobile */
+@media (max-width: 900px) {
+  section {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+}
