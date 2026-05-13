@@ -6,10 +6,11 @@ const SENDER_NAME = "Start Smart Event";
 
 const EVENT_DATE = process.env.EVENT_DATE || "Saturday, July 12, 2025";
 const EVENT_TIME = process.env.EVENT_TIME || "10:00 AM – 4:00 PM WAT";
-const EVENT_LOCATION = process.env.EVENT_LOCATION || "Lagos, Nigeria";
+const EVENT_LOCATION = "Google Meet";
+const GOOGLE_MEET_LINK = process.env.GOOGLE_MEET_LINK || "https://meet.google.com/xyz-abcd-efg";
 const EVENT_DTSTART = process.env.EVENT_DTSTART || "20250712T090000Z";
 const EVENT_DTEND = process.env.EVENT_DTEND || "20250712T150000Z";
-const EVENT_NAME = "Start Smart: Syncing Academic Excellence with Industry Mastery";
+const EVENT_NAME = "Start Smart: Syncing Academic Excellence with Tech Industry";
 
 function generateICS(): string {
   const stamp = new Date().toISOString().replace(/[-:.]/g, "").slice(0, 15) + "Z";
@@ -25,8 +26,9 @@ function generateICS(): string {
     `DTSTART:${EVENT_DTSTART}`,
     `DTEND:${EVENT_DTEND}`,
     `SUMMARY:${EVENT_NAME}`,
-    "DESCRIPTION:Join us for an inspiring day where academic brilliance meets real-world industry mastery.",
-    `LOCATION:${EVENT_LOCATION}`,
+    "DESCRIPTION:Join us for an inspiring day where academic brilliance meets real-world tech industry mastery. Meet Link: " + GOOGLE_MEET_LINK,
+    `LOCATION:${GOOGLE_MEET_LINK}`,
+    `URL:${GOOGLE_MEET_LINK}`,
     "STATUS:CONFIRMED",
     "END:VEVENT",
     "END:VCALENDAR",
@@ -38,15 +40,15 @@ function getGoogleCalendarLink(): string {
     action: "TEMPLATE",
     text: EVENT_NAME,
     dates: `${EVENT_DTSTART}/${EVENT_DTEND}`,
-    details: "Join us for an inspiring day where academic brilliance meets real-world industry mastery.",
-    location: EVENT_LOCATION,
+    details: "Join us for an inspiring day where academic brilliance meets real-world tech industry mastery.\n\nMeet Link: " + GOOGLE_MEET_LINK,
+    location: GOOGLE_MEET_LINK,
   });
   return `https://calendar.google.com/calendar/render?${params.toString()}`;
 }
 
 const calendarIcon = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`;
 const clockIcon = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`;
-const pinIcon = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`;
+const videoIcon = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.6 11.6L22 7v10l-6.4-4.6v4.6H2V7h13.6v4.6z"/></svg>`;
 
 export function buildConfirmationHtml(name: string): string {
   const gcal = getGoogleCalendarLink();
@@ -69,7 +71,7 @@ export function buildConfirmationHtml(name: string): string {
   <p style="font-size:12px;font-weight:600;color:#7c3aed;letter-spacing:0.08em;text-transform:uppercase;margin:0 0 28px;">Start Smart Event</p>
 
   <p style="font-size:22px;font-weight:700;color:#111;margin:0 0 10px;">Hello, ${name}</p>
-  <p style="font-size:15px;color:#555;line-height:1.7;margin:0 0 28px;">You're officially registered. We're excited to have you join us for a day where academic excellence meets industry mastery.</p>
+  <p style="font-size:15px;color:#555;line-height:1.7;margin:0 0 28px;">You're officially registered. We're excited to have you join us for a day where academic excellence meets the tech industry.</p>
 
   <div class="card" style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:20px 24px;margin-bottom:28px;">
     <p style="font-size:11px;font-weight:600;color:#9ca3af;letter-spacing:0.1em;text-transform:uppercase;margin:0 0 14px;">Event Details</p>
@@ -89,10 +91,10 @@ export function buildConfirmationHtml(name: string): string {
         </td>
       </tr>
       <tr>
-        <td style="width:24px;vertical-align:middle;padding:10px 0;">${pinIcon}</td>
+        <td style="width:24px;vertical-align:middle;padding:10px 0;">${videoIcon}</td>
         <td style="padding:10px 0 0 12px;vertical-align:middle;">
           <span style="display:block;font-size:11px;color:#9ca3af;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:2px;">Location</span>
-          <span style="font-size:14px;color:#111;font-weight:600;">${EVENT_LOCATION}</span>
+          <span style="font-size:14px;color:#111;font-weight:600;"><a href="${GOOGLE_MEET_LINK}" style="color:#7c3aed;text-decoration:underline;">Google Meet</a></span>
         </td>
       </tr>
     </table>
@@ -111,8 +113,8 @@ export function buildConfirmationHtml(name: string): string {
     </tr>
   </table>
 
-  <p style="font-size:12px;color:#9ca3af;margin:0;text-align:center;">Questions? <a href="mailto:${FROM_EMAIL}" style="color:#7c3aed;text-decoration:none;">${FROM_EMAIL}</a></p>
-  <p style="font-size:11px;color:#c9cace;margin:8px 0 0;text-align:center;">© 2025 Start Smart Event</p>
+  <p style="font-size:12px;color:#9ca3af;margin:0;text-align:center;">Questions? <a href="https://wa.me/2349017165458" style="color:#7c3aed;text-decoration:none;">Chat with us on WhatsApp</a></p>
+  <p style="font-size:11px;color:#c9cace;margin:8px 0 0;text-align:center;">© 2026 Start Smart Event. The SYNC agenda</p>
 </div>
 </body>
 </html>`;
@@ -140,8 +142,8 @@ export function buildBroadcastHtml(bodyText: string): string {
     <div style="color:#333;font-size:15px;line-height:1.8;white-space:pre-wrap;">${bodyText}</div>
   </div>
 
-  <p style="font-size:12px;color:#9ca3af;margin:0;text-align:center;">Questions? <a href="mailto:${FROM_EMAIL}" style="color:#7c3aed;text-decoration:none;">${FROM_EMAIL}</a></p>
-  <p style="font-size:11px;color:#c9cace;margin:8px 0 0;text-align:center;">© 2025 Start Smart Event</p>
+  <p style="font-size:12px;color:#9ca3af;margin:0;text-align:center;">Questions? <a href="https://wa.me/2349017165458" style="color:#7c3aed;text-decoration:none;">Chat with us on WhatsApp</a></p>
+  <p style="font-size:11px;color:#c9cace;margin:8px 0 0;text-align:center;">© 2026 Start Smart Event. The SYNC agenda</p>
 </div>
 </body>
 </html>`;
@@ -153,7 +155,7 @@ const apiInstance = new brevo.TransactionalEmailsApi();
 
 export async function sendConfirmationEmail(name: string, email: string) {
   const ics = Buffer.from(generateICS()).toString("base64");
-  
+
   const sendSmtpEmail = new brevo.SendSmtpEmail();
   sendSmtpEmail.sender = { email: FROM_EMAIL, name: SENDER_NAME };
   sendSmtpEmail.to = [{ email, name }];
@@ -178,11 +180,11 @@ export async function sendBroadcastEmail(
 ) {
   const html = buildBroadcastHtml(body);
   const batches: typeof recipients[] = [];
-  
+
   for (let i = 0; i < recipients.length; i += 50) {
     batches.push(recipients.slice(i, i + 50));
   }
-  
+
   for (const batch of batches) {
     const sendSmtpEmail = new brevo.SendSmtpEmail();
     sendSmtpEmail.sender = { email: FROM_EMAIL, name: SENDER_NAME };

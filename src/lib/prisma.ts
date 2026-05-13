@@ -1,11 +1,12 @@
-import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
+import { PrismaLibSql } from "@prisma/adapter-libsql";
 import { PrismaClient } from "@/generated/prisma/client";
 
-const adapter = new PrismaBetterSqlite3({
-  url: process.env.DATABASE_URL ?? "file:./prisma/dev.db",
+const adapter = new PrismaLibSql({
+  url: process.env.DATABASE_URL!,
+  authToken: process.env.DATABASE_AUTH_TOKEN,
 });
 
-const prismaClientSingleton = () => new PrismaClient({ adapter });
+const prismaClientSingleton = () => new PrismaClient({ adapter } as never);
 
 declare const globalThis: {
   prismaGlobal: ReturnType<typeof prismaClientSingleton>;

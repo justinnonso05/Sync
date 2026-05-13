@@ -6,7 +6,7 @@ import dynamic from "next/dynamic";
 const Snowfall = dynamic(() => import("@/components/Snowfall"), { ssr: false });
 
 const SPEAKERS = [
-  { name: "Olowu Seun", role: "Top Framer Developer" },
+  { name: "De Smile", role: "Top Framer Developer" },
   { name: "Alikah Joseph", role: "Ex P.E Intern at Meta" },
   { name: "Tosin (Ruby)", role: "Host" },
 ];
@@ -35,11 +35,10 @@ const META = [
   {
     icon: (
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
-        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-        <circle cx="12" cy="10" r="3" />
+        <path d="M15.6 11.6L22 7v10l-6.4-4.6v4.6H2V7h13.6v4.6z" />
       </svg>
     ),
-    text: "Lagos, Nigeria",
+    text: "Google Meet",
   },
 ];
 
@@ -142,7 +141,7 @@ export default function Home() {
             fontWeight: 500, color: "var(--creva-gray-400)",
             margin: "0 0 1.5rem", lineHeight: 1.4,
           }}>
-            Syncing Academic Excellence<br />with Industry Mastery
+            Syncing Academic Excellence<br />with Tech Industry
           </p>
 
           {/* Tagline */}

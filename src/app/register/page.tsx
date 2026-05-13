@@ -22,10 +22,9 @@ const ClockIcon = () => (
     <polyline points="12 6 12 12 16 14" strokeLinecap="round" />
   </svg>
 );
-const PinIcon = () => (
+const VideoIcon = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
-    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-    <circle cx="12" cy="10" r="3" />
+    <path d="M15.6 11.6L22 7v10l-6.4-4.6v4.6H2V7h13.6v4.6z" />
   </svg>
 );
 const UsersIcon = () => (
@@ -35,9 +34,9 @@ const UsersIcon = () => (
 );
 
 const EVENT_INFO = [
-  { icon: <CalendarIcon />, value: "July 12, 2025" },
+  { icon: <CalendarIcon />, value: "May 23, 2026" },
   { icon: <ClockIcon />,    value: "10:00 AM – 4:00 PM WAT" },
-  { icon: <PinIcon />,      value: "Lagos, Nigeria" },
+  { icon: <VideoIcon />,    value: "Google Meet" },
 ];
 
 export default function RegisterPage() {
@@ -139,7 +138,7 @@ export default function RegisterPage() {
           </h1>
 
           <p style={{ color: "var(--creva-gray-400)", fontSize: "0.92rem", lineHeight: 1.65, margin: 0 }}>
-            Syncing Academic Excellence with Industry Mastery
+            Syncing Academic Excellence with Tech Industry
           </p>
         </div>
 
