@@ -4,12 +4,12 @@ const BREVO_API_KEY = process.env.BREVO_API_KEY!;
 const FROM_EMAIL = process.env.FROM_EMAIL || "hello@justinch.dev";
 const SENDER_NAME = "Start Smart Event";
 
-const EVENT_DATE = process.env.EVENT_DATE || "Saturday, July 12, 2025";
+const EVENT_DATE = process.env.EVENT_DATE || "May 23, 2026";
 const EVENT_TIME = process.env.EVENT_TIME || "10:00 AM – 4:00 PM WAT";
 const EVENT_LOCATION = "Google Meet";
 const GOOGLE_MEET_LINK = process.env.GOOGLE_MEET_LINK || "https://meet.google.com/xyz-abcd-efg";
-const EVENT_DTSTART = process.env.EVENT_DTSTART || "20250712T090000Z";
-const EVENT_DTEND = process.env.EVENT_DTEND || "20250712T150000Z";
+const EVENT_DTSTART = process.env.EVENT_DTSTART || "20260523T090000Z";
+const EVENT_DTEND = process.env.EVENT_DTEND || "20260523T150000Z";
 const EVENT_NAME = "Start Smart: Syncing Academic Excellence with Tech Industry";
 
 function generateICS(): string {
