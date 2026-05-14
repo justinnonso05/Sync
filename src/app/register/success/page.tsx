@@ -9,13 +9,13 @@ const Snowfall = dynamic(() => import("@/components/Snowfall"), { ssr: false });
 const gcalUrl =
   "https://calendar.google.com/calendar/render?action=TEMPLATE" +
   "&text=Start+Smart%3A+Syncing+Academic+Excellence+with+Tech+Industry" +
-  "&dates=20260523T090000Z%2F20260523T150000Z" +
+  `&dates=${process.env.EVENT_DTSTART}%2F${process.env.EVENT_DTEND}` +
   "&details=Join+us+for+an+inspiring+day+where+academic+excellence+meets+the+tech+industry." +
   "&location=Google+Meet";
 
 const EVENT_ROWS = [
   {
-    label: "Date", value: "May 23, 2026",
+    label: "Date", value: process.env.EVENT_DATE as string,
     icon: (
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--creva-purple-light)" strokeWidth="1.75">
         <rect x="3" y="4" width="18" height="18" rx="2" /><line x1="16" y1="2" x2="16" y2="6" strokeLinecap="round" />
@@ -24,7 +24,7 @@ const EVENT_ROWS = [
     ),
   },
   {
-    label: "Time", value: "10:00 AM – 4:00 PM WAT",
+    label: "Time", value: process.env.EVENT_TIME as string,
     icon: (
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--creva-purple-light)" strokeWidth="1.75">
         <circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" strokeLinecap="round" />

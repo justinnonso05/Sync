@@ -34,9 +34,9 @@ const UsersIcon = () => (
 );
 
 const EVENT_INFO = [
-  { icon: <CalendarIcon />, value: "May 23, 2026" },
-  { icon: <ClockIcon />,    value: "10:00 AM – 4:00 PM WAT" },
-  { icon: <VideoIcon />,    value: "Google Meet" },
+  { icon: <CalendarIcon />, value: process.env.EVENT_DATE as string },
+  { icon: <ClockIcon />,    value: process.env.EVENT_TIME as string },
+  { icon: <VideoIcon />,    value: process.env.EVENT_LOCATION || "Google Meet" },
 ];
 
 export default function RegisterPage() {

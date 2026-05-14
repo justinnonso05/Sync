@@ -6,7 +6,7 @@ const SENDER_NAME = "Start Smart Event";
 
 const EVENT_DATE = process.env.EVENT_DATE || "May 23, 2026";
 const EVENT_TIME = process.env.EVENT_TIME || "10:00 AM – 4:00 PM WAT";
-const EVENT_LOCATION = "Google Meet";
+const EVENT_LOCATION = process.env.EVENT_LOCATION || "Google Meet";
 const GOOGLE_MEET_LINK = process.env.GOOGLE_MEET_LINK || "https://meet.google.com/xyz-abcd-efg";
 const EVENT_DTSTART = process.env.EVENT_DTSTART || "20260523T090000Z";
 const EVENT_DTEND = process.env.EVENT_DTEND || "20260523T150000Z";

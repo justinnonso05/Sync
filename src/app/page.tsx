@@ -21,7 +21,7 @@ const META = [
         <line x1="3" y1="10" x2="21" y2="10" />
       </svg>
     ),
-    text: "May 23, 2026",
+    text: process.env.EVENT_DATE as string,
   },
   {
     icon: (
@@ -30,7 +30,7 @@ const META = [
         <polyline points="12 6 12 12 16 14" strokeLinecap="round" />
       </svg>
     ),
-    text: "10:00 AM – 4:00 PM WAT",
+    text: process.env.EVENT_TIME as string,
   },
   {
     icon: (
@@ -106,7 +106,7 @@ export default function Home() {
             marginBottom: "1.5rem",
           }}>
             <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--creva-purple-mid)", flexShrink: 0 }} />
-            Free Event · May 23, 2026
+            Free Event · {process.env.EVENT_DATE}
           </div>
 
           {/* Title */}
